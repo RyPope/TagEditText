@@ -1,4 +1,4 @@
-package com.ryanpope.demo;
+package com.ryanpope.tagpreference;
 
 import org.junit.Test;
 
