@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ryanpope.tagedittext.DemoActivity">
+    tools:context="com.ryanpope.demo.DemoActivity">
 
-    <fragment android:name="com.ryanpope.tagedittext.DemoFragment"
+    <fragment android:name="com.ryanpope.demo.DemoFragment"
               android:id="@+id/preference_fragment"
               android:layout_width="match_parent"
               android:layout_height="match_parent" />

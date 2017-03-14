@@ -1,4 +1,4 @@
-package com.ryanpope.tagedittext;
+package com.ryanpope.demo;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;

@@ -1,4 +1,4 @@
-package com.ryanpope.tagedittext;
+package com.ryanpope.demo;
 
 import android.app.Activity;
 import android.os.Bundle;

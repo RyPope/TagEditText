@@ -1,4 +1,4 @@
-package com.ryanpope.tagedittext;
+package com.ryanpope.demo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

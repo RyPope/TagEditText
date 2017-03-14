@@ -1,4 +1,4 @@
-package com.ryanpope.tagedittext;
+package com.ryanpope.demo;
 
 import org.junit.Test;
 
