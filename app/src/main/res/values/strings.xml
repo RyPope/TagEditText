@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TagEditText Demo</string>
+
+    <!-- TagEditText Preference -->
+    <string name="demo_preference_category_header">Category Header</string>
+    <string name="demo_tag_title">Tag Edit Text Title</string>
+    <string name="demo_tag_summary">Tag Edit Text Summary</string>
+    <string name="demo_tag_dialog_title">Tag Edit Text Dialog Title</string>
+    <string name="demo_tag_dialog_message">Tag Edit Text Dialog Message</string>
+</resources>
