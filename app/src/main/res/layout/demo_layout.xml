@@ -6,8 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.ryanpope.demo.DemoActivity">
 
-    <fragment android:name="com.ryanpope.demo.DemoFragment"
-              android:id="@+id/preference_fragment"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent" />
+    <com.ryanpope.tagedittext.TagEditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TagEditText" />
+
 </RelativeLayout>

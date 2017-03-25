@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tagTextPaddingBottom">5dp</dimen>
+    <dimen name="tagTextPaddingLeft">5dp</dimen>
+    <dimen name="tagTextPaddingRight">5dp</dimen>
+    <dimen name="tagTextPaddingTop">5dp</dimen>
+
+    <dimen name="tagTextBackgroundRadius">5dp</dimen>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TagEditText">
+        <attr name="textAppearance" format="reference" />
+        <attr name="textBackgroundDrawable" format="reference" />
+
+        <attr name="textPaddingTop" format="dimension" />
+        <attr name="textPaddingBottom" format="dimension" />
+        <attr name="textPaddingRight" format="dimension" />
+        <attr name="textPaddingLeft" format="dimension" />
+    </declare-styleable>
+</resources>

@@ -1,1 +1,1 @@
-include ':app', ':tagpreference'
+include ':app', ':tagedittext'
