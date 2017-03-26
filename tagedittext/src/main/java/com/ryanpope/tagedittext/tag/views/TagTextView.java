@@ -2,6 +2,7 @@ package com.ryanpope.tagedittext.tag.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
@@ -35,8 +36,11 @@ public class TagTextView extends TextView {
     }
 
     private void setBackground(final TypedArray typedArray) {
-        final int drawableResourceId = typedArray.getResourceId(R.styleable.TagEditText_textBackgroundDrawable, R.drawable.tag_background);
-        setBackgroundResource(drawableResourceId);
+        setBackgroundDrawable(buildDefaultBackground(typedArray));
+    }
+
+    private Drawable buildDefaultBackground(final TypedArray typedArray) {
+        return new TagBackground(getContext(), typedArray);
     }
 
     private void setPadding(final TypedArray typedArray) {

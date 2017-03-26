@@ -2,7 +2,8 @@
 <resources>
     <declare-styleable name="TagEditText">
         <attr name="textAppearance" format="reference" />
-        <attr name="textBackgroundDrawable" format="reference" />
+        <attr name="textBackgroundColor" format="color" />
+        <attr name="textBackgroundRadius" format="integer" />
 
         <attr name="textPaddingTop" format="dimension" />
         <attr name="textPaddingBottom" format="dimension" />

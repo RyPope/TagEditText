@@ -3,7 +3,6 @@ package com.ryanpope.tagedittext.tag;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import com.ryanpope.tagedittext.tag.views.TagBitmap;
 import com.ryanpope.tagedittext.tag.views.TagTextView;
@@ -11,7 +10,6 @@ import com.ryanpope.tagedittext.tag.views.TagTextView;
 import static android.widget.TextView.BufferType.SPANNABLE;
 
 public class TagViewComposer {
-    private static final String TAG = TagViewComposer.class.getSimpleName();
     private final AttributeSet mAttributeSet;
     private final int mDefStyleAttribute;
     private Context mContext;
@@ -23,8 +21,6 @@ public class TagViewComposer {
     }
 
     public Drawable createTagSpanForTag(final Tag tag) {
-        Log.d(TAG, "Creating TagSpan for " + tag.getWord());
-
         final TagTextView tagTextView = createTextView(tag.getWord());
 
         return buildDrawableFromTextView(tagTextView);

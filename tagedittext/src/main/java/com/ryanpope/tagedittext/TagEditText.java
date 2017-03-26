@@ -2,6 +2,7 @@ package com.ryanpope.tagedittext;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.method.LinkMovementMethod;
@@ -15,12 +16,14 @@ import com.ryanpope.tagedittext.tag.TagViewComposer;
 import com.ryanpope.tagedittext.tag.views.TagSpan;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static android.text.TextUtils.isEmpty;
 
 public class TagEditText extends AutoCompleteTextView {
     private TagViewComposer mTagViewComposer;
+    private boolean mShouldIgnoreEvents;
 
     private static final String SEPARATOR = "\\s+";
 
@@ -53,26 +56,28 @@ public class TagEditText extends AutoCompleteTextView {
 
     }
 
-    private void applySpansToText() {
-        final CharSequence text = getText();
-
-        final String[] tagsSeparatedBySeparator = getTagsSeparatedBySeparator(text);
+    private void refreshSpans() {
+        final List<String> tagsSeparatedBySeparator = getTagsSeparatedBySeparator();
         final List<Tag> tags = buildTagSpansFromSeparatedWords(tagsSeparatedBySeparator);
 
         addTagViewsToEditText(tags);
     }
 
-    private String[] getTagsSeparatedBySeparator(final CharSequence text) {
-        if (isEmpty(text)) {
-            return new String[0];
+    private List<String> getTagsSeparatedBySeparator() {
+        if (isEmpty(getText())) {
+            return new ArrayList<>();
         }
 
-        final String currentText = String.valueOf(text);
-
-        return currentText.split(SEPARATOR);
+        return splitAndRemoveDuplicates();
     }
 
-    private List<Tag> buildTagSpansFromSeparatedWords(final String[] wordList) {
+    private List<String> splitAndRemoveDuplicates() {
+        final String[] splitValues = String.valueOf(getText()).split(SEPARATOR);
+
+        return Arrays.asList(splitValues);
+    }
+
+    private List<Tag> buildTagSpansFromSeparatedWords(final List<String> wordList) {
         final String text = getText().toString();
         final List<Tag> tagList = new ArrayList<>();
         int indexToStartFrom = 0;
@@ -96,16 +101,18 @@ public class TagEditText extends AutoCompleteTextView {
     }
 
     private void addTagViewsToEditText(final List<Tag> tags) {
-        final Spannable textSpannable = getText();
-
         for (final Tag tag : tags) {
-            setSpans(textSpannable, tag);
+            if (tag.getWord().trim().isEmpty()) {
+                continue;
+            }
+
+            setSpans(tag);
         }
 
-        ensureTailWhitespace();
+        ensureTrailingWhitespace();
     }
 
-    private void setSpans(final Spannable textSpannable, final Tag tag) {
+    private void setSpans(final Tag tag) {
         final Drawable drawable = mTagViewComposer.createTagSpanForTag(tag);
         final TagSpan tagSpan = new TagSpan(drawable, tag.getWord());
         final ClickableSpan clickableSpan = new ClickableSpan() {
@@ -115,13 +122,13 @@ public class TagEditText extends AutoCompleteTextView {
             }
         };
 
-        textSpannable.setSpan(
+        getText().setSpan(
                 tagSpan,
                 tag.getStartIndex(),
                 tag.getEndIndex(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        textSpannable.setSpan(
+        getText().setSpan(
                 clickableSpan,
                 tag.getStartIndex(),
                 tag.getEndIndex(),
@@ -129,27 +136,58 @@ public class TagEditText extends AutoCompleteTextView {
     }
 
     private void removeSpan(final Tag span) {
-        getText().delete(span.getStartIndex(), span.getEndIndex());
+        clearSpansAndRemoveTag(span);
+
+        refreshSpans();
+    }
+
+    private void clearSpansAndRemoveTag(final Tag span) {
+        setShouldIgnoreEvents(true);
+
+        final Editable cachedText = Editable.Factory.getInstance().newEditable(getText());
+        cachedText.clearSpans();
+        getText().clear();
+        cachedText.delete(span.getStartIndex(), span.getEndIndex() + 1);
+        setText(cachedText);
+
+        setShouldIgnoreEvents(false);
+    }
+
+    private void setShouldIgnoreEvents(final boolean shouldRefreshSpans) {
+        mShouldIgnoreEvents = shouldRefreshSpans;
+    }
+
+    private boolean shouldIgnoreEvents() {
+        return mShouldIgnoreEvents;
     }
 
     @Override
     public void onTextChanged(final CharSequence text, final int start, final int lengthBefore, final int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
 
-        if (!hasWhitespace(text.toString())
-                && !isBeingCreated()
-                && !isDeleting(lengthBefore, lengthAfter)) {
+        if (shouldNotRefresh(text, lengthBefore, lengthAfter)) {
             return;
         }
 
-        applySpansToText();
+        refreshSpans();
     }
 
-    private boolean isBeingCreated() {
-        return getText().getSpans(0, length(), TagSpan.class).length == 0;
+    private boolean shouldNotRefresh(final CharSequence text, final int lengthBefore, final int lengthAfter) {
+        return !hasWhitespace(text.toString())
+                && !isBeingCreated(lengthBefore, lengthAfter)
+                && !isRemovingTag(lengthBefore, lengthAfter)
+                && !shouldIgnoreEvents();
     }
 
-    private void ensureTailWhitespace() {
+    private boolean isBeingCreated(final int lengthBefore, final int lengthAfter) {
+        return !hasSpans() && !isManualEntry(lengthBefore, lengthAfter);
+    }
+
+    private boolean isManualEntry(final int lengthBefore, final int lengthAfter) {
+        return lengthAfter - lengthBefore == 1;
+    }
+
+    private void ensureTrailingWhitespace() {
         if (hasWhitespace(getText().toString())) {
             return;
         }
@@ -157,12 +195,17 @@ public class TagEditText extends AutoCompleteTextView {
         append(" ");
     }
 
-    private boolean isDeleting(final int lengthBefore, final int lengthAfter) {
+    private boolean isRemovingTag(final int lengthBefore, final int lengthAfter) {
         return lengthBefore > lengthAfter;
     }
 
     private boolean hasWhitespace(final String text) {
-        return !text.isEmpty() && Character.isWhitespace(text.charAt(text.length() - 1));
+        return !text.isEmpty()
+                && Character.isWhitespace(text.charAt(text.length() - 1));
+    }
+
+    private boolean hasSpans() {
+        return getText().getSpans(0, length(), TagSpan.class).length > 0;
     }
 
     @Override
