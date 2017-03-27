@@ -27,6 +27,23 @@ Add the dependency:
 	}
 ```
 
+```xml
+    <com.ryanpope.tagedittext.TagEditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TagEditText" />
+```
+
+```xml
+    <style name="TagEditText">
+        <item name="android:layout_margin">5dp</item>
+        <item name="textBackgroundRadius">3dp</item>
+        <item name="textBackgroundColor">@android:color/holo_orange_dark</item>
+        <item name="textSize">30sp</item>
+    </style>
+```
+
 ### Attributes:
 
 ```xml
