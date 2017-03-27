@@ -1,7 +1,9 @@
 package com.ryanpope.tagedittext;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
@@ -36,13 +38,18 @@ public class TagEditText extends AutoCompleteTextView {
     }
 
     public TagEditText(final Context context, final AttributeSet attrs, final int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-
-        init(context, attrs, defStyleAttr);
+        this(context, attrs, defStyleAttr, 0);
     }
 
-    private void init(final Context context, final AttributeSet attributeSet, final int defStyleAttr) {
-        mTagViewComposer = new TagViewComposer(context, attributeSet, defStyleAttr);
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public TagEditText(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+
+        init(attrs, defStyleAttr);
+    }
+
+    private void init(final AttributeSet attributeSet, final int defStyleAttr) {
+        mTagViewComposer = new TagViewComposer(getContext(), attributeSet, defStyleAttr);
 
         configureAttributes();
     }
