@@ -103,7 +103,6 @@ public class TagViewComposer {
                 (int) mTextPaddingRight,
                 (int) mTextPaddingBottom);
 
-        textView.setTextAppearance(mTextAppearanceResourceId);
         textView.setBackgroundDrawable(buildTextViewBackground());
         textView.setText(text, SPANNABLE);
 
