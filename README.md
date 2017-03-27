@@ -47,7 +47,7 @@ Add the dependency:
 ### Attributes:
 
 ```xml
-   <attr name="textAppearance" format="reference" />
+   <attr name="textSize" format="dimension" />
    <attr name="textBackgroundColor" format="color" />
    <attr name="textBackgroundRadius" format="dimension" />
    <attr name="textPaddingTop" format="dimension" />
