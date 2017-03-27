@@ -11,5 +11,6 @@
         <item name="android:layout_margin">5dp</item>
         <item name="textBackgroundRadius">3dp</item>
         <item name="textBackgroundColor">@android:color/holo_orange_dark</item>
+        <item name="textSize">30sp</item>
     </style>
 </resources>

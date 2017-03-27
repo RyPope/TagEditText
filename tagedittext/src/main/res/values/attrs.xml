@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="TagEditText">
-        <attr name="textAppearance" format="reference" />
+        <attr name="textSize" format="dimension" />
         <attr name="textBackgroundColor" format="color" />
         <attr name="textBackgroundRadius" format="dimension" />
 

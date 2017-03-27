@@ -6,4 +6,6 @@
     <dimen name="tagTextPaddingTop">5dp</dimen>
 
     <dimen name="tagTextBackgroundRadius">5dp</dimen>
+
+    <dimen name="tagTextSize">22sp</dimen>
 </resources>

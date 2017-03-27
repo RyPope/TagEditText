@@ -22,7 +22,7 @@ public class TagViewComposer {
     private float mTextPaddingLeft;
     private float mTextPaddingRight;
     private int mTextBackgroundColor;
-    private int mTextAppearanceResourceId;
+    private float mTextSize;
     private float mTextBackgroundRadius;
 
     public TagViewComposer(final Context context, final AttributeSet attributeSet, final int defStyleAttribute) {
@@ -44,7 +44,7 @@ public class TagViewComposer {
             extractPadding(typedArray);
             extractBackgroundColor(typedArray);
             extractBackgroundRadius(typedArray);
-            extractTextAppearance(typedArray);
+            extractTextSize(typedArray);
 
         } catch (final Exception e) {
             e.printStackTrace();
@@ -59,10 +59,10 @@ public class TagViewComposer {
                 mContext.getResources().getDimension(R.dimen.tagTextBackgroundRadius));
     }
 
-    private void extractTextAppearance(final TypedArray typedArray) {
-        mTextAppearanceResourceId = typedArray.getResourceId(
-                R.styleable.TagEditText_textAppearance,
-                R.style.textAppearance);
+    private void extractTextSize(final TypedArray typedArray) {
+        mTextSize = typedArray.getDimension(
+                R.styleable.TagEditText_textSize,
+                mContext.getResources().getDimension(R.dimen.tagTextSize));
     }
 
     private void extractBackgroundColor(final TypedArray typedArray) {
@@ -104,6 +104,7 @@ public class TagViewComposer {
                 (int) mTextPaddingBottom);
 
         textView.setBackgroundDrawable(buildTextViewBackground());
+        textView.setTextSize(mTextSize);
         textView.setText(text, SPANNABLE);
 
         return textView;
