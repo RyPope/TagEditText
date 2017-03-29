@@ -23,7 +23,7 @@ Add the dependency:
 
 ```xml
 	dependencies {
-		compile 'com.github.RyPope:TagEditText:1.0'
+		compile 'com.github.RyPope:TagEditText:1.0.2'
 	}
 ```
 
@@ -47,13 +47,14 @@ Add the dependency:
 ### Attributes:
 
 ```xml
-   <attr name="textSize" format="dimension" />
-   <attr name="textBackgroundColor" format="color" />
-   <attr name="textBackgroundRadius" format="dimension" />
-   <attr name="textPaddingTop" format="dimension" />
-   <attr name="textPaddingBottom" format="dimension" />
-   <attr name="textPaddingRight" format="dimension" />
-   <attr name="textPaddingLeft" format="dimension" />
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="textBackgroundColor" format="color" />
+        <attr name="textBackgroundRadius" format="dimension" />
+        <attr name="textPaddingTop" format="dimension" />
+        <attr name="textPaddingBottom" format="dimension" />
+        <attr name="textPaddingRight" format="dimension" />
+        <attr name="textPaddingLeft" format="dimension" />
  ```
  
  ### Screenshots
