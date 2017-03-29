@@ -120,8 +120,7 @@ public class TagEditText extends AutoCompleteTextView {
     }
 
     private void setSpans(final Tag tag) {
-        final Drawable drawable = mTagViewComposer.createTagSpanForTag(tag);
-        final TagSpan tagSpan = new TagSpan(drawable, tag.getWord());
+        final TagSpan tagSpan = recycleTag(tag);
         final ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(final View widget) {
@@ -142,6 +141,24 @@ public class TagEditText extends AutoCompleteTextView {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
+    private TagSpan recycleTag(final Tag tag) {
+        final TagSpan[] tagSpans = getText().getSpans(tag.getStartIndex(), tag.getEndIndex(), TagSpan.class);
+
+        if (tagSpans == null || tagSpans.length != 1) {
+            final Drawable drawable = mTagViewComposer.createTagSpanForTag(tag);
+
+            return new TagSpan(drawable, tag.getWord());
+        }
+
+        return clearExistingSpans(tagSpans[0]);
+    }
+
+    private TagSpan clearExistingSpans(final TagSpan tagSpan) {
+        getText().removeSpan(tagSpan);
+
+        return tagSpan;
+    }
+
     private void removeSpan(final Tag span) {
         clearSpansAndRemoveTag(span);
 
@@ -160,8 +177,8 @@ public class TagEditText extends AutoCompleteTextView {
         setShouldIgnoreEvents(false);
     }
 
-    private void setShouldIgnoreEvents(final boolean shouldRefreshSpans) {
-        mShouldIgnoreEvents = shouldRefreshSpans;
+    private void setShouldIgnoreEvents(final boolean shouldIgnoreEvents) {
+        mShouldIgnoreEvents = shouldIgnoreEvents;
     }
 
     private boolean shouldIgnoreEvents() {
