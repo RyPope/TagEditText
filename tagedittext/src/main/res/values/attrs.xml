@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="TagEditText">
         <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color" />
         <attr name="textBackgroundColor" format="color" />
         <attr name="textBackgroundRadius" format="dimension" />
 

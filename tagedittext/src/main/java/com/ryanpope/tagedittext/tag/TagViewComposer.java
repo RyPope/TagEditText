@@ -22,6 +22,7 @@ public class TagViewComposer {
     private float mTextPaddingLeft;
     private float mTextPaddingRight;
     private int mTextBackgroundColor;
+    private int mTextColor;
     private float mTextSize;
     private float mTextBackgroundRadius;
 
@@ -43,6 +44,7 @@ public class TagViewComposer {
         try {
             extractPadding(typedArray);
             extractBackgroundColor(typedArray);
+            extractTextColor(typedArray);
             extractBackgroundRadius(typedArray);
             extractTextSize(typedArray);
 
@@ -51,6 +53,12 @@ public class TagViewComposer {
         } finally {
             typedArray.recycle();
         }
+    }
+
+    private void extractTextColor(final TypedArray typedArray) {
+        mTextColor = typedArray.getColor(
+                R.styleable.TagEditText_textColor,
+                mContext.getResources().getColor(R.color.tagTextForegroundColor));
     }
 
     private void extractBackgroundRadius(final TypedArray typedArray) {
@@ -105,6 +113,7 @@ public class TagViewComposer {
 
         textView.setBackgroundDrawable(buildTextViewBackground());
         textView.setTextSize(mTextSize);
+        textView.setTextColor(mTextColor);
         textView.setText(text, SPANNABLE);
 
         return textView;
