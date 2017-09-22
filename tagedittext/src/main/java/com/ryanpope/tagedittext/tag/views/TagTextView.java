@@ -1,11 +1,11 @@
 package com.ryanpope.tagedittext.tag.views;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
 
-public class TagTextView extends TextView {
+public class TagTextView extends AppCompatTextView {
     public TagTextView(final Context context, final AttributeSet attributeSet, final int defStyleAttribute) {
         super(context, attributeSet, defStyleAttribute);
         setupAttributes();

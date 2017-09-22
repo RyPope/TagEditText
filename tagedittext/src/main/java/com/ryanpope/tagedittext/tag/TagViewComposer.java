@@ -103,6 +103,7 @@ public class TagViewComposer {
         return buildBitmapForTextView(tagTextView);
     }
 
+    @SuppressWarnings("deprecation")
     private TagTextView createTextView(final String text) {
         final TagTextView textView = new TagTextView(mContext, mAttributeSet, mDefStyleAttribute);
         textView.setPadding(
