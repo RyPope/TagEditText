@@ -1,9 +1,8 @@
 package com.ryanpope.tagedittext;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
@@ -11,7 +10,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 
 import com.ryanpope.tagedittext.tag.Tag;
 import com.ryanpope.tagedittext.tag.TagViewComposer;
@@ -23,7 +21,7 @@ import java.util.List;
 
 import static android.text.TextUtils.isEmpty;
 
-public class TagEditText extends AutoCompleteTextView {
+public class TagEditText extends AppCompatAutoCompleteTextView {
     private TagViewComposer mTagViewComposer;
     private boolean mShouldIgnoreEvents;
 
@@ -38,12 +36,7 @@ public class TagEditText extends AutoCompleteTextView {
     }
 
     public TagEditText(final Context context, final AttributeSet attrs, final int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public TagEditText(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context, attrs, defStyleAttr);
 
         init(attrs, defStyleAttr);
     }
