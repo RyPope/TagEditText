@@ -23,7 +23,7 @@ Add the dependency:
 
 ```xml
 	dependencies {
-		compile 'com.github.RyPope:TagEditText:1.0.3'
+		compile 'com.github.RyPope:TagEditText:1.0.4'
 	}
 ```
 
